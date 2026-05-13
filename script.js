@@ -12,6 +12,53 @@ const musicIcon  = document.getElementById('musicIcon');
 let   musicOn    = false;
 let   currentScreen = 'screen-welcome';
 
+// Pre-load audio as early as possible so it's ready when user clicks
+audio.preload = 'auto';
+audio.volume  = 0.55;
+audio.load();
+
+/* Robust play helper — shows a toast if browser still blocks it */
+function playMusic() {
+  const promise = audio.play();
+  if (promise !== undefined) {
+    promise.then(() => {
+      musicOn = true;
+      updateMusicIcon();
+    }).catch(err => {
+      // Browser blocked autoplay — show a friendly retry toast
+      console.warn('Audio play blocked:', err);
+      showMusicToast();
+    });
+  }
+}
+
+function showMusicToast() {
+  let toast = document.getElementById('musicToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'musicToast';
+    toast.style.cssText = `
+      position:fixed; bottom:5rem; right:1.2rem; z-index:9999;
+      background:rgba(255,107,157,.92); color:#fff;
+      padding:.7rem 1.2rem; border-radius:50px;
+      font-size:.9rem; cursor:pointer;
+      box-shadow:0 4px 20px rgba(255,64,129,.5);
+      backdrop-filter:blur(8px);
+      animation:fadeInUp .4s ease both;
+    `;
+    toast.textContent = '🎵 Tap to play music';
+    toast.addEventListener('click', () => {
+      audio.play().then(() => {
+        musicOn = true;
+        updateMusicIcon();
+        toast.remove();
+      }).catch(() => {});
+    });
+    document.body.appendChild(toast);
+    setTimeout(() => toast && toast.remove(), 8000);
+  }
+}
+
 // ── Slide captions ────────────────────────────
 const captions = [
   "Our beautiful memories... 💖",
@@ -97,11 +144,8 @@ function onScreenEnter(id) {
    WELCOME SCREEN
 ════════════════════════════════════════════ */
 document.getElementById('btnYesMusic').addEventListener('click', () => {
-  musicOn = true;
-  audio.volume = 0.55;
-  audio.play().catch(() => {});
   musicFab.style.display = 'flex';
-  updateMusicIcon();
+  playMusic();                 // robust helper handles browser policy
   goTo('screen-loading');
 });
 
@@ -111,9 +155,16 @@ document.getElementById('btnNoMusic').addEventListener('click', () => {
 });
 
 musicFab.addEventListener('click', () => {
-  if (musicOn) { audio.pause(); musicOn = false; }
-  else         { audio.play().catch(()=>{}); musicOn = true; }
-  updateMusicIcon();
+  if (musicOn) {
+    audio.pause();
+    musicOn = false;
+    updateMusicIcon();
+  } else {
+    audio.play().then(() => {
+      musicOn = true;
+      updateMusicIcon();
+    }).catch(() => showMusicToast());
+  }
 });
 
 function updateMusicIcon() {
