@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Unique 🖤</title>
+  <meta name="description" content="A heartfelt birthday surprise crafted with love." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       CUSTOM CURSOR
+  ═══════════════════════════════════════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOATING MUSIC BUTTON
+  ═══════════════════════════════════════════ -->
+  <button class="music-fab" id="musicFab" aria-label="Toggle Music" style="display:none">
+    <span id="musicIcon">🎵</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — WELCOME
+  ═══════════════════════════════════════════ -->
+  <section class="screen active" id="screen-welcome">
+    <canvas id="starsCanvas"></canvas>
+    <div class="hearts-container" id="welcomeHearts"></div>
+    <div class="welcome-content glass-card fade-in-up">
+      <div class="glow-ring"></div>
+      <p class="welcome-tag">✨ A Special Surprise ✨</p>
+      <h1 class="welcome-title glow-text">A Special Surprise<br/>for My Favorite Person 🖤</h1>
+      <p class="welcome-sub">Would you like to hear the music while watching this surprise?</p>
+      <div class="btn-group">
+        <button class="btn btn-primary" id="btnYesMusic">🎵 Yes, Play Music</button>
+        <button class="btn btn-ghost" id="btnNoMusic">🔇 No, Continue Without Music</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — LOADING
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-loading">
+    <div class="loading-content">
+      <div class="heart-loader">
+        <div class="heart-pulse">❤️</div>
+        <div class="sparkle-ring" id="sparkleRing"></div>
+      </div>
+      <p class="loading-text">Preparing something made with all my heart... ✨</p>
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — INTRO QUOTES
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-quotes">
+    <div class="quotes-bg"></div>
+    <div class="quotes-content">
+      <p class="quote-text" id="quoteText"></p>
+      <div class="quote-cursor" id="quoteCursor">|</div>
+    </div>
+    <div class="floating-hearts-bg" id="quotesHearts"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — WISH WINDOWS (1–5)
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-wishes">
+    <canvas class="wish-canvas" id="wishCanvas"></canvas>
+    <div class="wish-wrapper">
+      <!-- Wish 1 -->
+      <div class="wish-slide active" id="wish-1">
+        <div class="wish-card glass-card">
+          <div class="wish-icon">🌸</div>
+          <h2 class="wish-title">"May your birthday be as beautiful as your smile."</h2>
+          <p class="wish-sub">Every time you smile, the world becomes a little brighter. 🌟</p>
+        </div>
+      </div>
+      <!-- Wish 2 -->
+      <div class="wish-slide" id="wish-2">
+        <div class="wish-card glass-card">
+          <div class="wish-icon">☀️</div>
+          <h2 class="wish-title">"You make every day brighter just by being in it."</h2>
+          <p class="wish-sub">Your presence is a gift I'm grateful for every single day. 🖤</p>
+        </div>
+      </div>
+      <!-- Wish 3 -->
+      <div class="wish-slide" id="wish-3">
+        <div class="wish-card glass-card">
+          <div class="wish-icon">🌙</div>
+          <h2 class="wish-title">"May all your dreams come true, my love."</h2>
+          <p class="wish-sub">You deserve every beautiful thing this universe has to offer. ✨</p>
+        </div>
+      </div>
+      <!-- Wish 4 -->
+      <div class="wish-slide" id="wish-4">
+        <div class="wish-card glass-card">
+          <div class="wish-icon">💫</div>
+          <h2 class="wish-title">"You deserve endless happiness, love, and success."</h2>
+          <p class="wish-sub">Because no one shines brighter or deserves more than you. 🌹</p>
+        </div>
+      </div>
+      <!-- Wish 5 -->
+      <div class="wish-slide" id="wish-5">
+        <div class="wish-card glass-card">
+          <div class="wish-icon">💖</div>
+          <h2 class="wish-title">"My life became more meaningful because of you."</h2>
+          <p class="wish-sub">You are my reason to smile, to dream, and to love. 🖤</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — MEMORY TIMELINE
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-timeline">
+    <div class="timeline-bg"></div>
+    <div class="timeline-content">
+      <h2 class="section-heading glow-text">Our Precious Moments 🌹</h2>
+      <div class="timeline">
+        <div class="timeline-item" data-delay="0">
+          <div class="timeline-dot">✨</div>
+          <div class="timeline-card glass-card">
+            <p class="timeline-line">"Every moment with you is precious."</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-delay="200">
+          <div class="timeline-dot">💫</div>
+          <div class="timeline-card glass-card">
+            <p class="timeline-line">"Every smile of yours is unforgettable."</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-delay="400">
+          <div class="timeline-dot">🖤</div>
+          <div class="timeline-card glass-card">
+            <p class="timeline-line">"Every memory we share is treasured."</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary mt-2" id="btnToLetter">Continue 💌</button>
+    </div>
+    <div class="floating-hearts-bg" id="timelineHearts"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 6 — HEARTFELT LETTER
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-letter">
+    <div class="letter-bg"></div>
+    <div class="letter-content">
+      <h2 class="section-heading glow-text">A Letter From My Heart 💌</h2>
+      <div class="letter-card glass-card">
+        <p class="letter-salutation">To the most unique and wonderful person,</p>
+        <div class="letter-body">
+          <p>May your heart always be full of joy,<br/>
+          your life be filled with success,<br/>
+          and your smile never fade.</p>
+          <br/>
+          <p>Thank you for bringing so much happiness into my life.</p>
+          <br/>
+          <p>You are truly special to me. 🖤</p>
+        </div>
+        <p class="letter-sign">— With all my love 💖</p>
+      </div>
+      <button class="btn btn-primary mt-2" id="btnToSlideshow">See Our Memories 📸</button>
+    </div>
+    <div class="floating-hearts-bg" id="letterHearts"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 7 — PHOTO SLIDESHOW
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-slideshow">
+    <div class="slideshow-wrapper">
+      <div class="slideshow-track" id="slideshowTrack">
+        <div class="slide active" id="slide-1"><img src="assests/image1.jpeg" alt="Memory 1" /></div>
+        <div class="slide" id="slide-2"><img src="assests/image2.jpeg" alt="Memory 2" /></div>
+        <div class="slide" id="slide-3"><img src="assests/image3.jpeg" alt="Memory 3" /></div>
+        <div class="slide" id="slide-4"><img src="assests/image4.jpeg" alt="Memory 4" /></div>
+        <div class="slide" id="slide-5"><img src="assests/image5.jpeg" alt="Memory 5" /></div>
+        <div class="slide" id="slide-6"><img src="assests/image6.jpeg" alt="Memory 6" /></div>
+        <div class="slide" id="slide-7"><img src="assests/image7.jpeg" alt="Memory 7" /></div>
+        <div class="slide" id="slide-8"><img src="assests/image8.jpeg" alt="Memory 8" /></div>
+        <div class="slide" id="slide-9"><img src="assests/image9.jpeg" alt="Memory 9" /></div>
+        <div class="slide" id="slide-10"><img src="assests/image10.jpeg" alt="Memory 10" /></div>
+      </div>
+      <div class="slideshow-caption" id="slideshowCaption">
+        <p id="captionText">Our beautiful memories... 💖</p>
+      </div>
+      <div class="slideshow-dots" id="slideshowDots"></div>
+      <div class="slideshow-hearts" id="slideshowHearts"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 8 — GRAND FINALE
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-finale">
+    <canvas id="fireworksCanvas"></canvas>
+    <div class="confetti-container" id="confettiContainer"></div>
+    <div class="finale-content">
+      <div class="finale-badge">🎂</div>
+      <h1 class="finale-title glow-text pulse-glow">HAPPY BIRTHDAY<br/>UNIQUE🖤</h1>
+      <p class="finale-sub">You are one of a kind.<br/>Unique, precious, and deeply cherished.</p>
+      <p class="finale-wish">May your smile shine forever and your dreams come true. ✨</p>
+      <button class="btn btn-golden mt-2" id="btnToQuestion">Continue 🥺</button>
+    </div>
+    <div class="floating-hearts-bg" id="finaleHearts"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 9 — FINAL QUESTION
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-question">
+    <div class="question-bg"></div>
+    <div class="question-content glass-card">
+      <p class="question-emoji">🥺</p>
+      <h2 class="question-title glow-text">Do you like this?</h2>
+      <p class="question-sub">Your answer matters a lot to me 🖤</p>
+      <div class="question-btns">
+        <button class="btn btn-primary" id="btnYesLike">Yes 💖</button>
+        <button class="btn btn-no" id="btnNoLike">No 😜</button>
+      </div>
+      <p class="escape-msg" id="escapeMsg"></p>
+    </div>
+    <div class="floating-hearts-bg" id="questionHearts"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 10 — THANK YOU ENDING
+  ═══════════════════════════════════════════ -->
+  <section class="screen" id="screen-thankyou">
+    <div class="confetti-container" id="thankConfetti"></div>
+    <div class="thankyou-content">
+      <div class="thankyou-heart">💖</div>
+      <h2 class="thankyou-title glow-text">Thank you for saying yes. 🖤</h2>
+      <p class="thankyou-msg">This surprise was made with all my love.</p>
+      <p class="thankyou-once">Once again...</p>
+      <h1 class="thankyou-hbd glow-text pulse-glow">HAPPY BIRTHDAY UNIQUE🖤</h1>
+      <button class="btn btn-golden mt-2" id="btnReplay">🔁 Replay from Beginning</button>
+    </div>
+    <div class="floating-hearts-bg" id="thankyouHearts"></div>
+  </section>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="assests/birthday-song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
